@@ -18,50 +18,32 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-import { authRoutes } from './routes/index'
+import Route from "@ioc:Adonis/Core/Route";
+//import Database from "@ioc:Adonis/Lucid/Database";
 
-Route.on('/').render('welcome')
+import { authRoutes, newsRoutes } from "./routes/index";
 
-Route.get('/news',({view}) => {
-  return view.render('news.view')
-}).as("news_view") 
+Route.on("/").render("welcome");
 
-Route.patch('/news/:id',({params}) => {
-  return { params}
-}).as("news_update") 
-
-Route.delete('/news/:id',({params}) => {
-  return { params}
-}).as("news_delete") 
+// Route.get("/news", async ({ view }) => {
+//   const articles = await Database.from("articles").select('*');
+//   return view.render("news.view", {articles});
+// }).as("news_view");
 
 
+// Route.patch("/news/:id", ({ params }) => {
+//   return { params };
+// }).as("news_update");
+
+
+// Route.delete("/news/:id", ({ params }) => {
+//   return { params };
+// }).as("news_delete");
 
 Route.group(() => {
-  Route.get('/', async () => {
-    return { API: 'Test Api v1 Tool' }
+  Route.get("/", async () => {
+    return { API: "Test Api v1 Tool" };
   }),
-  Route.post('/', async ({request, response}) => {
-    const body = request.body()
-    return response.status(200).json({
-      message:"Success",
-      data: body
-    })
-  }).as("api_get"),
-  Route.put('/:id', async ({request, response, params}) => {
-    const body = request.body()
-    const { id } = params
-    return response.status(200).json({
-      message:"Success",
-      data: {
-        ...body,
-        id: id
-      }
-    })
-  }).where('id', {
-    match: /^[0-9]+$/,
-    cast: (id) => Number(id)
-  }).as("api_update"),
-  authRoutes()
-}).prefix('api/v1')
-
+    newsRoutes()
+    authRoutes();
+}).prefix("api/v1");
