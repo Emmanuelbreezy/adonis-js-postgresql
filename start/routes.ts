@@ -23,7 +23,9 @@ import { authRoutes } from './routes/index'
 
 Route.on('/').render('welcome')
 
-Route.on('/news').render('news.view').as("news_view") 
+Route.get('/news',({view}) => {
+  return view.render('news.view')
+}).as("news_view") 
 
 Route.patch('/news/:id',({params}) => {
   return { params}
