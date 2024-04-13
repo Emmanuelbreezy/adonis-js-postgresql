@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create News</title>
+</head>
+<body>
+    <h1>Create Article</h1>
+
+    <form action="{{route('news_create')}}" method="POST" style=" width: 30%; display: flex; flex-direction: column; gap: 18px;">
+      {{ csrfField()}}
+      <input type="text" name="title" value="" placeholder="Title" />
+      <input type="file" name="image" />
+      <textarea name="content" id="" cols="30" rows="10"></textarea>
+      <button type="submit">Create</button>
+    </form>
+
+</body>
+</html>
